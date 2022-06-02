@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+     Use bootstrap to create a responsive website. And header which displays "medAI"
+     1. Make the website themes with doctor blue and white accents
+     2. Make the website responsive
+     3. Create a dropdown menu and submit button
+     4. A output div for the result from the api
+ -->    
+
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>medAI</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+    <!-- Bootstrap cdn -->
+    <link href = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin = "anonymous">
+    <!-- Custom styles for this template -->
+    <script src="medai.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">med.AI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            
+        </div>
+      </div>
+    </nav>
+    <div class="mt-5 col-md-12">
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">med.AI</h1>
+          <p class="lead">A tool predict the psychiatric condition using EEG data with multiple models</p>
+        </div>
+      </div>
+    </div>
+    <!-- Add a dropdown menu and submit button -->
+    <div class="mt-2 col-md-12">
+</div>
+    <div class="container">
+            <form  id="form" method="post" enctype="multipart/form-data">
+              <div class="row justify-content-md-center">
+
+              <div class=" col-lg-5  text-center">
+
+    
+      
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Select Model</label>
+          <select class="form-control" name="models" id="exampleFormControlSelect1" required="true">
+            <option value="">Select</option>
+
+            <option value="rf_model">Random Forest Classifier</option>
+            <option value="som_model">Rhonen Self-Organising Map</option>
+            <option value="svc_model">Support Vector Machine</option>
+         
+          </select>
+        </div>  
+    <!-- Create a checkbox -->
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="0" id="defaultCheck1">
+      <label class="form-check-label" for="defaultCheck1">
+        Compare with
+                </div>
+
+      </label>
+          <!-- Create a dropdown and Only show when the checkbox is ticked -->
+          <div id="model2_form"class="form-group" style="display: none;" >
+            <br>
+
+          <select class="form-control" name="models2" id="exampleFormControlSelect1">
+            <option value="">Select 2nd Model</option>
+
+            <option value="rf_model">Random Forest Classifier</option>
+            <option value="som_model">Rhonen Self-Organising Map</option>
+            <option value="svc_model">Support Vector Machine</option>
+         
+          </select>
+          </div>
+<br>
+            <button type="submit" class="btn btn-success" value="submit" id="submit">Submit</button>
+        </div>
+        
+        </div>
+      
+      </form>
+    </body>
+    <!-- create image taf and align it to the center -->
+   
+    <div class="mt-5 col-md-12">
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <!-- loader in bootstrap -->
+          <div id="loader_info" class="loader" style="display: none;">
+            <img src="Radar.gif" alt="Loading..." /> <b>Processing...</b>
+          </div>
+
+          <img id="info_disorders"src="disorders.png" class="img-fluid" alt="Responsive image" style="display: block; margin-left: auto; margin-right: auto;">
+
+          <h1 class="mt-5">Results</h1>
+              
+
+            
+
+          <p class="lead" style="display: inline;">These are the model <p class="card-title " style="color: rgb(61, 176, 32); display: inline;">Predictions</p></p> 
+
+              <!-- Error Message with width 40% -->
+              
+              <div id="error_message" class="alert alert-danger" style="width: 40%; margin-left: auto; margin-right: auto; display: none;" >
+                <strong>Error!</strong> 
+                <p id="error_message_body">Please select a model.</p>
+              </div>
+
+        </div>
+      </div>
+    <!-- Output div -->
+    <div class="container text-center">
+
+   
+    <div class="container">
+      <div class="card-columns d-flex justify-content-center">
+          
+        <div class="card " >
+          <div class="card-block text-center "style="margin: 10px;">
+            <h5 class="card-title ">Model-1</h5>
+  
+          Acc: <b><p id="acc" class="card-text" style="margin:0;display:inline;" id="best_acc"> N/A </p></b>
+            <br>Prediction: <b><p class="card-text" id="pred" style="margin:0;display:inline;" id="best_acc"> N/A</p></b>
+        </div>
+        </div>
+        <div id="model2_card" class="card text-center " style="display: none;">
+          <div class="card-block"style="margin: 10px;">
+            <h5 class="card-title">Model-2</h5>
+  
+          Acc: <b><p id="acc2" class="card-text " style="margin:0;display:inline;" id="best_acc"> N/A </p></b>
+            <br>Prediction: <b><p class="card-text" id="pred2" style="margin:0;display:inline;" id="best_acc"> N/A</p></b>
+         </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="card-columns d-flex justify-content-center">
+          <div class="card " >
+            <div class="card-block text-center "style="margin: 10px;">
+           
+    <img id="img_model" src="https://i.stack.imgur.com/zGFsi.png" id="model_data" style="text-align: center;" height="100%" width="100%">
+            </div>
+
+            </div>
+            <div id="model2_card" class="card text-center " style="display: ;">
+              <div class="card-block"style="margin: 10px;">
+    <img id="img_model2" src="https://i.stack.imgur.com/zGFsi.png" id="model_data" style="text-align: center;" height="100%" width="100%">
+              </div>
+            </div>
+    </div>
+  </div>
+ 
+    <!-- Bootstrap cdn -->
+    <div class="mt-5 col-md-12">
+    </div>
+    <footer class="footer">
+        <div class="container text-center">
+          <span class="text-muted">Dataset Source : <a href="https://osf.io/8bsvr/">https://osf.io/8bsvr/</a></span>
+        </div>
+      </footer>
+   
+
+
+
+  </body>
+
+
+
+</html>
