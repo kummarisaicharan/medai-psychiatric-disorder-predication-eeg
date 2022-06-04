@@ -20,6 +20,10 @@
 
 Few points regarding the dataset include some screenshots.
 
+
+
+
+
 -----
 
 ## Models Selection
@@ -35,7 +39,7 @@ Model Selection Process
 
 2. Stochastic Gradient Descent : It is an Optimization algorithm that can be used to train neural network models. and it requires to be calculated for each variable in the models so that new values for the variables can be calculated.
 
-3.Support Vector Machine Algorithm : This Algorithm is to fit to the data that you provide, returning a "best fit" hyperplane that divides, or categorizes, your data.it works best for low-dimensional data.
+3. Support Vector Machine Algorithm : This Algorithm is to fit to the data that you provide, returning a "best fit" hyperplane that divides, or categorizes, your data.it works best for low-dimensional data.
 
 4. Kohonen self Organizing Map : It is computational Method for the visualization and analysis of high-dimensional data,it is an unsupervised learning approach and its network is trained through a competitive learning algorithm.
 
@@ -43,6 +47,33 @@ Model Selection Process
 
 
 -----
+
 ## Models Implementation
 
 List out the libraries and frameworks used and explain about the preprocessing and fine tuning.
+
+These Libraries  we used in implemtation of models
+
+- Matplotlib
+- Pandas
+- sklearn
+- seaborn
+- keras
+
+Frameworks :
+
+FrontEnd Frameworks :
+
+- HTML
+- CSS
+- JAVASCRIPT
+- JQUERY
+
+BackendFrameworks :
+
+- FASTAPI
+
+
+
+
+
